@@ -128,8 +128,17 @@ With the move to IPv6, the primary mechanism for address grouping
 remains matching by prefix length, albeit with longer prefix lengths.
 This only allows for strictly hierarchical address groupings.  The
 longer address lengths, however, provide opportunities for assigning
-semantics to bit strings within addresses beyond the prefix.  See
-{{example-systems}} for examples.
+semantics to bit strings within addresses beyond the prefix, when
+allocating addresses for virtual services.
+
+Numerous systems (see {{example-systems}} for examples) have been
+assigning semantics to IPv6 bits past their IANA prefixes. These
+systems attempted to communicate address patterns underlying their
+system semantics both in documentation and in machine-readable
+configurations accompaning the systems. Due to the lack of standard
+notation, the documentation often resorted to pictographs and verbose
+English descriptions. The configuration syntax and parsers were
+invariably ad hoc and incompatible with other systems.
 
 Here we define a syntax for specifying groupings (matching rules) of
 IPv6 addresses, where a set of less-significant bits have a particular
@@ -320,8 +329,8 @@ most-significant bits set.
 The the PFX_LEN most-significant bits MUST NOT be set in SCOPED_MASK.
 
 
-Applicability   {#applicability}
-=============
+Compatibility and Parser guidelines   {#compatibility}
+===================================
 
 Only parsers that wish to support address groupings that cannot be
 represented using address/prefix-length are required to support
@@ -330,14 +339,15 @@ address/mask notation.
 Systems that support communicating address grouping in address/mask
 notation to other systems SHOULD communicate such grouping in
 canonical address/prefix-mask notation, if possible.  This would
-ensure compatibility with older systems, if all configured address
-groupings are proper CIDR prefixes.
+ensure compatibility with systems that do not support address/mask
+configurations, if all configured address groupings are proper CIDR
+prefixes.
 
 Address groupings that cannot be expressed using address/prefix-mask
-notation MAY be comminicated with other systems using Scoped
-Mask/Value ({{scoped}}) notation, as long as the PFX_LEN (semantic
-prefix scope) has been configured via external means (i.e. not
-automatically derived from the MASK bitmap).
+notation MAY be comminicated using Scoped Mask/Value ({{scoped}})
+notation, as long as the PFX_LEN (semantic prefix scope) has been
+configured via external means (i.e. not automatically derived from the
+MASK bitmap by the system itself).
 
 
 Security Considerations    {#security}
@@ -382,75 +392,6 @@ IANA Considerations   {#iana}
 This document has no actions for IANA.
 
 
-Examples of Semantic Use of Lower Address Bits   {#example-systems}
-==============================================
-
-Assigning semantics to lower bits of IPv6 addresses and defining
-policies based on such address groupings have been done for many
-years. Documents describing such policies and configurations for
-equipment implementing these policies did not use a consistent
-notation.
-
-A Framework for Semantic IPv6 Prefix and Gap Analysis
----------------------------------------------------------------------
-
-Internet draft {{?I-D.jiang-semantic-prefix}} describes the need for
-adding semantics to lower IPv6 address bits to define address groups
-that cannot be expressed as CIDR blocks and analyzes some implications
-of this practice. This draft describes uses of such address groups for
-creating routing policies as well as configuring such policies on
-hosts and routers both statically and dynamically.
-
-Teredo
-------
-
-Teredo protocol {{?RFC4380}} uses four bit ranges past Teredo IANA
-prefix bits to encode server and client IPv4 addresses, a flags
-bitmap, and a port.
-
-OpenFlow Switch Configuration
------------------------------
-
-OpenFlow Switch Specification {{OpenFlow}} describes OpenFlow switch
-configuration API that can match flows based on an arbitrary IPv6
-bitmask applied to IPv6 source (OXM_OF_IPV6_SRC) or destination
-(OXM_OF_IPV6_DST) addresses. Version 1.2 was the first version to
-introduce such IPv6 address/bitmask flow match rules (chapter A.2.3.7)
-in 2011.
-
-TeraStream IPv6 Addressing
---------------------------
-
-TeraStream {{TeraStream}} system is using bit ranges to encode service
-type in IPv6 address bits that come after IANA prefix bits. The system
-was launched in 2012.
-
-SURFnet IPv6 Address Plan and incognito Routing Plan
-----------------------------------------------------
-
-SURFnet published a white paper {{SURFnetAddrPlan}} advocating that
-ISPs use bit ranges past their IANA prefix to encode geo-location and
-address use types. The white paper is giving examples of a sample
-address allocation that uses one nibble (bits 68-71) for encoding
-geo-location and another nibble (bits 64-67) for the use type.
-
-IPv6 Routing Plan {{IncognitoRoutingPlan}} by incognito is advocating
-allocating bit ranges past an IANA prefix to designate various address
-attributes, including "subnet types".
-
-Due to the lack of a standard notation, both papers resorts to
-pictographs.
-
-
-Geolocation-based addressing method for IPv6 addresses
-------------------------------------------------------
-
-Qualcomm US patent 7,929,535 {{GeoAddressPatent}} describes a method
-of embedding geo-location information, such as latitude, longitude,
-altitude, in predefined ranges of bits of an IPv6 address past their
-IANA prefix.
-
-
 Change Log
 ==========
 
@@ -470,3 +411,92 @@ The Acknowledgments will come here.
 
 
 --- back
+
+
+Examples of Semantic Use of Lower Address Bits   {#example-systems}
+==============================================
+
+Assigning semantics to lower bits of IPv6 addresses and defining
+policies based on such address groupings have been done for many
+years. Documents describing such policies and configurations for
+equipment implementing these policies do not use a consistent
+notation.  Most documents resort to pictographs and verbose English,
+while the configuration syntax and parsers are invariably ad hoc.
+
+
+A Framework for Semantic IPv6 Prefix and Gap Analysis
+---------------------------------------------------------------------
+
+Internet draft {{?I-D.jiang-semantic-prefix}} describes the need for
+adding semantics to lower IPv6 address bits to define address groups
+that cannot be expressed as CIDR blocks and analyzes some implications
+of this practice. This draft describes uses of such address groups for
+creating routing policies as well as configuring such policies on
+hosts and routers both statically and dynamically.
+
+
+Teredo
+------
+
+Teredo protocol {{?RFC4380}} uses four bit ranges past Teredo IANA
+prefix bits to encode server and client IPv4 addresses, a flags
+bitmap, and a port.
+
+
+OpenFlow Switch Configuration
+-----------------------------
+
+OpenFlow Switch Specification {{OpenFlow}} describes OpenFlow switch
+configuration API that can match flows based on an arbitrary IPv6
+bitmask applied to IPv6 source (OXM_OF_IPV6_SRC) or destination
+(OXM_OF_IPV6_DST) addresses. Version 1.2 was the first version to
+introduce such IPv6 address/bitmask flow match rules (chapter A.2.3.7)
+in 2011.
+
+
+TeraStream IPv6 Addressing
+--------------------------
+
+TeraStream {{TeraStream}} system is using bit ranges to encode service
+type in IPv6 address bits that come after IANA prefix bits. The system
+was launched in 2012.
+
+
+SURFnet IPv6 Address Plan and incognito Routing Plan
+----------------------------------------------------
+
+SURFnet published a white paper {{SURFnetAddrPlan}} advocating that
+ISPs use bit ranges past their IANA prefix to encode geo-location and
+address use types. The white paper is giving examples of a sample
+address allocation that uses one nibble (bits 68-71) for encoding
+geo-location and another nibble (bits 64-67) for the use type.
+
+IPv6 Routing Plan {{IncognitoRoutingPlan}} by incognito is advocating
+allocating bit ranges past an IANA prefix to designate various address
+attributes, including "subnet types".
+
+
+Geolocation-based addressing method for IPv6 addresses
+------------------------------------------------------
+
+Qualcomm US patent 7,929,535 {{GeoAddressPatent}} describes a method
+of embedding geo-location information, such as latitude, longitude,
+altitude, in predefined ranges of bits of an IPv6 address past their
+IANA prefix.
+
+
+Customer IDs as low-order bits
+------------------------------
+
+CDNs (and other hosting providers) host web sites belonging to
+multiple customers using the same servers.  Due to the lack of support
+for SNI TLS extension {{?RFC6066}} by some user agents active on the
+Internet, CDNs resort to using unique IP addresses to identify
+specific customer domains and, hence, certificates for TLS
+negotiation.  In case of IPv6 addresses, at least some CDNs use the
+less significant bits of an IPv6 address to identify customer domains
+(while the more significant bits carry internal routing information).
+The configuration of systems matching lower bits of IPv6 addresses to
+individual customer domains must use ad hoc syntax due to the lack of
+a standard way to express semantics of matching on bit ranges other
+than address prefixes.
