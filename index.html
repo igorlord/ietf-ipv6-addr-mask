@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>igorlord/ietf-ipv6-addr-mask branches</title>
+    <style>
+      body { font-family: sans-serif; }
+      h2 { font-size: 130%; }
+      h3 { font-size: 120%; color: #222; }
+    </style>
+  </head>
+  <body>
+    <h2>Editor's drafts for igorlord/ietf-ipv6-addr-mask</h2>
+    <ul id="branch-master">
+      <li>
+        draft-lubashev-ipv6-addr-mask-tmp30875: 
+        <a href="./draft-lubashev-ipv6-addr-mask-tmp30875.html"
+           class="html draft-lubashev-ipv6-addr-mask-tmp30875">html</a>, 
+        <a href="./draft-lubashev-ipv6-addr-mask-tmp30875.txt"
+           class="txt draft-lubashev-ipv6-addr-mask-tmp30875">plain text</a>, 
+        <a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-lubashev-ipv6-addr-mask-tmp30875.txt&amp;url2=https://igorlord.github.io/ietf-ipv6-addr-mask/draft-lubashev-ipv6-addr-mask-tmp30875.txt"
+           class="diff draft-lubashev-ipv6-addr-mask-tmp30875">
+          diff with last submission</a>
+      </li>
+      <li>
+        draft-lubashev-ipv6-addr-mask: 
+        <a href="./draft-lubashev-ipv6-addr-mask.html"
+           class="html draft-lubashev-ipv6-addr-mask">html</a>, 
+        <a href="./draft-lubashev-ipv6-addr-mask.txt"
+           class="txt draft-lubashev-ipv6-addr-mask">plain text</a>, 
+        <a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-lubashev-ipv6-addr-mask.txt&amp;url2=https://igorlord.github.io/ietf-ipv6-addr-mask/draft-lubashev-ipv6-addr-mask.txt"
+           class="diff draft-lubashev-ipv6-addr-mask">
+          diff with last submission</a>
+      </li>
+    </ul>
+    <script>
+// @licstart
+//  Any copyright is dedicated to the Public Domain.
+//  http://creativecommons.org/publicdomain/zero/1.0/
+// @licend */
+window.onload = function() {
+  var referrer_branch = 'master';
+  // e.g., "https://github.com/user/repo/tree/master"
+  var chunks = document.referrer.split("/");
+  if (chunks[2] === 'github.com' && chunks[5] === 'tree') {
+    referrer_branch = chunks[6];
+  }
+  let branch = document.querySelector('#branch-' + referrer_branch);
+  let h = document.location.hash.substring(1);
+  if (h === 'show') {
+    document.location.hash = '#' + branch.id;
+  } else if (branch && h.startsWith('go')) {
+    let e = branch.querySelector(h.substring(2));
+    if (e && e.href) {
+      document.location = e.href;
+    }
+  }
+};
+    </script>
+  </body>
+</html>
