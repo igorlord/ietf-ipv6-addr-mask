@@ -13,18 +13,17 @@ Expires: April 19, 2018                                 October 16, 2017
 
 Abstract
 
-   With significantly longer IPv6 address prefixes assigned to End
-   Sites, operators sometimes find opportunities to devise operator-
-   specific addressing schemes that assign operational semantics to
-   lower-order bit ranges.  There is currently no standard or
-   interoperable text representation of addresses sharing bit patterns
-   than are not prefixes.  This RFC introduces IPv6 Address/Mask
-   notation that allows one to represent address groupings beyond "all
-   addresses that share a single prefix".  The representation is similar
-   to the IPv4 address/mask notation in its expressiveness, but its
-   syntax is derived from the familiar address/prefix-length.  The
-   address/prefix-length notation is a special case of the address/mask
-   notation, ensuring clarity and compatibility with existing parsers.
+   With /48 IPv6 address prefixes assigned to network operators, the
+   operators sometimes find opportunities to devise addressing schemes
+   that assign operational semantics to lower-order bit ranges.  There
+   is currently no standard or interoperable text representation of
+   addresses sharing bit patterns than are not prefixes.  This RFC
+   introduces IPv6 Address/Mask notation that allows one to represent
+   address groupings beyond "all addresses that share a single prefix".
+   The representation is similar to the IPv4 address/mask notation in
+   its expressiveness, but it is derived from the familiar address/
+   prefix-length notation for clarity and compatibility with existing
+   parsers.
 
    For example, using this representation, both 2001:db8::/32 and
    2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
@@ -49,6 +48,7 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on April 19, 2018.
+
 
 
 
@@ -125,24 +125,25 @@ Internet-Draft                 v6AddrMask                   October 2017
    remains matching by prefix length, albeit with longer prefix lengths.
    This only allows for strictly hierarchical address groupings.  The
    longer address lengths, however, provide opportunities for assigning
-   semantics to bit strings within addresses beyond the prefix, when
-   allocating addresses for virtual services.
+   operator-specific semantics to bit strings within addresses beyond
+   the prefix, especially when allocating addresses for virtual
+   services.
 
    Numerous systems (see Appendix A for examples) have been assigning
-   semantics to IPv6 bits past their IANA prefixes.  These systems
-   attempted to communicate address patterns underlying their system
-   semantics both in documentation and in machine-readable
+   semantics to IPv6 bits that come after IANA prefix bits.  These
+   systems attempted to communicate address patterns underlying their
+   system semantics both in documentation and in machine-readable
    configurations accompanying the systems.  Due to the lack of standard
    textual representation, the documentation often resorted to
    pictographs and verbose English descriptions.  The configuration
    syntax and parsers were invariably ad hoc and incompatible with other
    systems.
 
-   Here we define a syntax for specifying groupings (matching rules) of
-   IPv6 addresses, where a set of less-significant bits have a
-   particular value.  For example, 2001:db8::1234//ffff:ffff::ffff would
-   match on any addresses starting with 2001:db8::/32 and ending with
-   the last 16 bits being ::1234.
+   Here we define a syntax for representing groupings (matching rules)
+   of IPv6 addresses, where a set of less-significant bits have a
+   particular value.  For example, 2001:db8::1234//ffff:ffff::ffff
+   matches all addresses whose 32 most significant bits are 2001:0db8
+   and whose 16 least significant bits are 1234.
 
    This document only concerns itself with the textual representation of
    address groups that cannot be expressed as CIDR blocks.  Our goal is
@@ -159,9 +160,8 @@ Internet-Draft                 v6AddrMask                   October 2017
    representations can also be used to identify an individual address
    and its subnet.
 
-   The netmask notation described by [RFC0950] is commonly used for
-   IPv4.  It consists of a tuple of a network address and a network
-   mask.  For example: 198.51.100.4 netmask 255.255.255.0.
+
+
 
 
 
@@ -169,6 +169,10 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 3]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   The netmask notation described by [RFC0950] is commonly used for
+   IPv4.  It consists of a tuple of a network address and a network
+   mask.  For example: 198.51.100.4 netmask 255.255.255.0.
 
    The address/prefix-length notation described by [RFC4632] is commonly
    used for both IPv4 and IPv6.  It consists of a tuple of a network
@@ -213,10 +217,6 @@ Internet-Draft                 v6AddrMask                   October 2017
        different prefixes routed to those data centers but desire a
        unified set of rules for assigning, managing, and routing IPv6
        addresses within those data centers.  These operators need to
-       express rules that do not depend on the prefixes of the addresses
-       to which the rules apply.
-
-
 
 
 
@@ -225,6 +225,9 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 4]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+       express rules that do not depend on the prefixes of the addresses
+       to which the rules apply.
 
 3.  Notational Conventions
 
@@ -272,15 +275,14 @@ Internet-Draft                 v6AddrMask                   October 2017
        This specifies IPv6 addresses that have "aa" in bits 24-31 and
        "1234" in bits 0-15.
 
-   3.  2001:db8:://ffff:ffff::
-
-
 
 
 Lubashev & Nygren        Expires April 19, 2018                 [Page 5]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   3.  2001:db8:://ffff:ffff::
 
        This is equivalent to 2001:db8::/32.
 
@@ -327,8 +329,6 @@ Internet-Draft                 v6AddrMask                   October 2017
    To make these representations easier to operationally manage and
    validate, it helps to have an explicit convention for representing
    prefixes within address groups.  For example,
-   2001:db8::1234//ffff:ffff::ffff can be represented as
-   2001:db8::1234//32+::ffff.
 
 
 
@@ -337,6 +337,9 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 6]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   2001:db8::1234//ffff:ffff::ffff can be represented as
+   2001:db8::1234//32+::ffff.
 
    This is specified as:
 
@@ -381,9 +384,6 @@ Internet-Draft                 v6AddrMask                   October 2017
    mask notation SHOULD have as many set bits as the semantics of the
    policy would allow.
 
-   Operators wishing to assign semantics to bit ranges should be aware
-   that these semantics may be guessable or leaked outside the
-   organization.  Hence, there is a risk of privacy/information leakage.
 
 
 
@@ -393,6 +393,10 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 7]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   Operators wishing to assign semantics to bit ranges should be aware
+   that these semantics may be guessable or leaked outside the
+   organization.  Hence, there is a risk of privacy/information leakage.
 
 8.  Address Utilization Considerations
 
@@ -438,10 +442,6 @@ Internet-Draft                 v6AddrMask                   October 2017
               Procedure", STD 5, RFC 950, DOI 10.17487/RFC0950, August
               1985, <https://www.rfc-editor.org/info/rfc950>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
 
 
 
@@ -449,6 +449,11 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 8]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4632]  Fuller, V. and T. Li, "Classless Inter-domain Routing
               (CIDR): The Internet Address Assignment and Aggregation
@@ -490,11 +495,6 @@ Internet-Draft                 v6AddrMask                   October 2017
               <https://3vf60mmveq1g8vzn48q2o71a-wpengine.netdna-ssl.com/
               wp-content/uploads/2014/10/openflow-spec-v1.2.pdf>.
 
-   [RFC4380]  Huitema, C., "Teredo: Tunneling IPv6 over UDP through
-              Network Address Translations (NATs)", RFC 4380,
-              DOI 10.17487/RFC4380, February 2006,
-              <https://www.rfc-editor.org/info/rfc4380>.
-
 
 
 
@@ -505,6 +505,11 @@ Lubashev & Nygren        Expires April 19, 2018                 [Page 9]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
+
+   [RFC4380]  Huitema, C., "Teredo: Tunneling IPv6 over UDP through
+              Network Address Translations (NATs)", RFC 4380,
+              DOI 10.17487/RFC4380, February 2006,
+              <https://www.rfc-editor.org/info/rfc4380>.
 
    [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
               Extensions: Extension Definitions", RFC 6066,
@@ -520,11 +525,6 @@ Internet-Draft                 v6AddrMask                   October 2017
               Lothberg, P. and M. Abrahamsson, "TeraStream - IPv6
               Addressing Format", October 2013,
               <https://ripe67.ripe.net/presentations/251-ripe2-4.pdf>.
-
-
-
-
-
 
 
 
