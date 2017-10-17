@@ -1,5 +1,5 @@
 ---
-title: IPv6 Address/Mask Notation
+title: A Recommendation for IPv6 Address/Mask Notation
 abbrev: v6AddrMask
 docname: draft-lubashev-ipv6-addr-mask-latest
 date: {DATE}
@@ -97,22 +97,24 @@ informative:
 
 --- abstract
 
-With significantly longer IPv6 address prefixes assigned to ISPs,
-operators sometimes find opportunities to assign special meaning to
-lower-order bit patterns. Often, these bit patterns cannot be
-expressed as an address prefix.
+With /48 IPv6 address prefixes assigned to network operators, the
+operators sometimes find opportunities to devise addressing schemes
+that assign operational semantics to lower-order bit ranges.  There is
+currently no standard or interoperable text representation of
+addresses sharing bit patterns than are not prefixes. This RFC
+introduces IPv6 Address/Mask notation that allows one to represent
+address groupings beyond "all addresses that share a single
+prefix". The representation is similar to the IPv4 address/mask
+notation in its expressiveness, but it is derived from the familiar
+address/prefix-length notation for clarity and compatibility with
+existing parsers.
 
-This RFC introduces IPv6 Address/Mask notation that allows one to
-express address groupings beyond "all addresses that share a single
-prefix". The notation is similar to the IPv4 address/mask notation in
-its expressiveness, but its syntax is derived from the traditional
-address/prefix-length notation. The traditional address/prefix-length
-notation is a special case of the address/mask notation.
-
-For example, using this notation, both 2001:db8::/32 and
-2001:db8:://ffff:ffff:: have the same meaning.  However, the following
-requires the new notation: 2001:db8::1234//ffff:ffff::ffff or,
-equivalently, 2001:db8::1234//32+::ffff.
+For example, using this representation, both 2001:db8::/32 and
+2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
+addresses having the first 32 bits "2001:0db8::" and the last 16 bits
+"::1234" requires the new representation:
+2001:db8::1234//ffff:ffff::ffff or, equivalently,
+2001:db8::1234//32+::ffff.
 
 
 --- middle
@@ -128,39 +130,41 @@ With the move to IPv6, the primary mechanism for address grouping
 remains matching by prefix length, albeit with longer prefix lengths.
 This only allows for strictly hierarchical address groupings.  The
 longer address lengths, however, provide opportunities for assigning
-semantics to bit strings within addresses beyond the prefix, when
-allocating addresses for virtual services.
+operator-specific semantics to bit strings within addresses beyond the
+prefix, especially when allocating addresses for virtual services.
 
 Numerous systems (see {{example-systems}} for examples) have been
-assigning semantics to IPv6 bits past their IANA prefixes. These
-systems attempted to communicate address patterns underlying their
-system semantics both in documentation and in machine-readable
-configurations accompaning the systems. Due to the lack of standard
-notation, the documentation often resorted to pictographs and verbose
-English descriptions. The configuration syntax and parsers were
-invariably ad hoc and incompatible with other systems.
+assigning semantics to IPv6 bits that come after IANA prefix
+bits. These systems attempted to communicate address patterns
+underlying their system semantics both in documentation and in
+machine-readable configurations accompanying the systems. Due to the
+lack of standard textual representation, the documentation often
+resorted to pictographs and verbose English descriptions. The
+configuration syntax and parsers were invariably ad hoc and
+incompatible with other systems.
 
-Here we define a syntax for specifying groupings (matching rules) of
+Here we define a syntax for representing groupings (matching rules) of
 IPv6 addresses, where a set of less-significant bits have a particular
-value.  For example, 2001:db8::1234//ffff:ffff::ffff would match on
-any addresses starting with 2001:db8::/32 and ending with the last 16
-bits being ::1234.
+value.  For example, 2001:db8::1234//ffff:ffff::ffff matches all
+addresses whose 32 most significant bits are 2001:0db8 and whose 16
+least significant bits are 1234.
 
-This document only concerns itself with the notational aspects of
+This document only concerns itself with the textual representation of
 address groups that cannot be expressed as CIDR blocks. Our goal is
-standardizing on a consistent notation to remove a hinderance to
+standardizing on a consistent representation to remove a hindrance to
 interoperability of systems that wish to express rules and policies
 that apply to such address groups (see {{example-systems}} for
-example). Guidance for the applicability of such address groupings is
+examples). Guidance for the applicability of such address groupings is
 outside the scope of this document.
 
 
 Netmask and Prefix-Length Notations         {#current-notations}
 -----------------------------------
 
-There are two common notations for identifying groups of addresses
-(networks, subnets, internet routing blocks). These notations can also
-be used to identify an individual address and its subnet.
+There are two common text representations for identifying groups of
+addresses (networks, subnets, internet routing blocks). These
+representations can also be used to identify an individual address and
+its subnet.
 
 The netmask notation described by {{!RFC0950}} is commonly used for
 IPv4. It consists of a tuple of a network address and a network
@@ -192,20 +196,19 @@ IPv6 allocation guidelines {{!RFC6177}} guarantee at least a /48
 allocation to network operators and strongly recommend a multi-/64
 allocation to end sites. Because these address blocks are orders of
 magnitude larger than any imaginable number of physical hosts, network
-operators are managing those addresses in new and creative
-ways.
+operators are managing those addresses in new and creative ways.
 
 Sometimes, useful address grouping are not "all addresses that share a
 prefix of a certain length".  Additionally, within an administrative
 scope, there are use-cases where semantics are assigned to individual
-bits or series of bits.
+bit ranges.
 
 Consider these examples:
 
 1. Allocating a block of addresses to each host and using the least
    significant bits to indicate a TLS certificate.  These operators
    may need a way to express a rule that applies to all traffic that
-   uses a particual TLS certificate.
+   uses a particular TLS certificate.
 
 2. Network operators managing multiple similar data centers may have
    different prefixes routed to those data centers but desire a
@@ -223,8 +226,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 document are to be interpreted as described in {{!RFC2119}}.
 
 
-IPv6 Address/Mask Notation      {#addr-mask-notation}
-==========================
+IPv6 Address/Mask Text Representation      {#addr-mask-representation}
+=====================================
 
 This RFC extends address/prefix-length notation of {{!RFC4632}} in a
 way that is reminiscent of the IPv4 netmask notation of
@@ -241,8 +244,8 @@ the MASK may be sparse and is not strictly a prefix. For example:
 2001:db8::1234//ffff:ffff::ffff.
 
 The "//" was chosen as a separator for address/mask notation, since it
-is similar to the "/" separator used by address/prefix-length notation
-(and hence is readily recognizeable) but prevents incorrectly parsing
+is similar to the "/" separator used by address/prefix-length (and
+hence is readily recognizable) but prevents incorrectly parsing
 address/mask as address/prefix-length.
 
 Constraints and Validation      {#validation}
@@ -250,8 +253,8 @@ Constraints and Validation      {#validation}
 
 To be a valid definition for just a group of addresses, the ADDRESS
 part MUST NOT have any bits set outside of the MASK. Otherwise, the
-notation identifies an individual address and a group of addresses it
-belongs to.
+ADDRESS // MASK represents an individual address and a group of
+addresses it belongs to.
 
 Examples: groups of addresses
 -----------------------------
@@ -289,8 +292,8 @@ Examples: specific addresses and groups they belong to
 
    This is equivalent to 2001:db8::1/32.
 
-Textual representation of the IPv6 Address/Mask notation
---------------------------------------------------------
+Textual representation of the Address and Mask
+----------------------------------------------
 
 When IPv6 mask is used after "//", both the network address and mask
 parts MUST be formatted as IPv6 addresses and, therefore, their
@@ -306,25 +309,29 @@ clear bits, then the canonical representation MUST use a prefix
 length.
 
 
-Scoped Mask/Value specifications   {#scoped}
-================================
+Scoped Mask/Value notation   {#scoped}
+==========================
 
-A common use-case is to specify an address/mask filter within a prefix
-scope.  For example, all addresses ending with ::1234 within
+Since assigning operator-specific semantics to bit ranges is only
+possible within the address space assigned to the operator by IANA, a
+common use-case is to specify an address/mask within an IANA-assigned
+prefix scope.  For example, all addresses ending with ::1234 within
 2001:db8::/32 can be specified as 2001:db8::1234//ffff:ffff::ffff.
 
-To make these easier to operationally manage and validate, it helps to
-have an explicit convention for representing these.  For example:
+To make these representations easier to operationally manage and
+validate, it helps to have an explicit convention for representing
+prefixes within address groups.  For example,
+2001:db8::1234//ffff:ffff::ffff can be represented as
 2001:db8::1234//32+::ffff.
 
 This is specified as:
 
         ADDRESS // PFX_LEN + SCOPED_MASK
 
-These can be canonicalized into a ADDRESS // MASK notation. The
-canonical MASK is constructed by performing the bitwise-or of
-SCOPED_MASK and the mask derived from an address with the PFX_LEN
-most-significant bits set.
+Scoped Mask/Value notation representation can be canonicalized using a
+ADDRESS // MASK notation. The canonical MASK is constructed by
+performing the bitwise-or of SCOPED_MASK and the mask derived from an
+address with the PFX_LEN most-significant bits set.
 
 The the PFX_LEN most-significant bits MUST NOT be set in SCOPED_MASK.
 
@@ -338,36 +345,35 @@ address/mask notation.
 
 Systems that support communicating address grouping in address/mask
 notation to other systems SHOULD communicate such grouping in
-canonical address/prefix-mask notation, if possible.  This would
-ensure compatibility with systems that do not support address/mask
-configurations, if all configured address groupings are proper CIDR
-prefixes.
+canonical address/prefix-mask notation, if possible.  This ensures
+compatibility with systems that do not support address/mask notation,
+if all configured address groupings are proper CIDR prefixes.
 
-Address groupings that cannot be expressed using address/prefix-mask
-notation MAY be comminicated using Scoped Mask/Value ({{scoped}})
+Address groupings that cannot be expressed using address/prefix-length
+notation MAY be communicated using Scoped Mask/Value ({{scoped}})
 notation, as long as the PFX_LEN (semantic prefix scope) has been
-configured via external means (i.e. not automatically derived from the
-MASK bitmap by the system itself).
+configured via external means (i.e. PFX_LEN SHOULD NOT be
+automatically derived from the MASK bitmap by the system itself).
 
 
 Security Considerations    {#security}
 =======================
 
-This document only specifies IPv6 address grouping notation and its
-meaning and does not intend to specify when matching based on bit
-substrings is applicable or appropriate.
+This document only defines textual representation for IPv6 address
+groupings.  It does not intend to recommend when assigning semantics
+to specific bit ranges and matching based on bit substrings is
+applicable or appropriate.
 
-IP addresses can be spoofed or attacker-controlled.  This is
+IP addresses can be spoofed or be attacker-controlled.  This is
 especially true of IPv6 addresses differing only in less-significant
-bits and belonging to different administrative domains. When used in
+bits and belonging to different administrative domains.  When used in
 policies applied to incoming traffic, the MASK part of the
 address/mask notation SHOULD have as many set bits as the semantics of
 the policy would allow.
 
-Operators wishing to assign semantics to bit subscrings in addresses
-should be aware that these semantics may be guessable or leaked
-outside the organization. Hence, there is a risk of
-privacy/information leakage.
+Operators wishing to assign semantics to bit ranges should be aware
+that these semantics may be guessable or leaked outside the
+organization. Hence, there is a risk of privacy/information leakage.
 
 
 Address Utilization Considerations  {#utilization}
@@ -381,8 +387,8 @@ network interfaces.
 On the other hand, a gratuitous use of lower address bits can lead to
 a premature address space exhaustion and difficulties in adapting to
 the future needs of the organization within the assigned address
-space. An example of such gratuitous use is designating large parts of
-the address space for a bitmask where only a small fraction of all
+space.  An example of such gratuitous use is designating large parts
+of the address space for a bitmask, where only a small fraction of all
 possible bit combinations is utilized.
 
 
@@ -400,6 +406,7 @@ Since draft-lubashev-ipv6-addr-mask-00
 
 - Changed separator from "/" to "//"
 - Addressed privacy in {{security}}
+- Added {{compatibility}}
 - Added {{utilization}}
 - Added {{example-systems}}
 
@@ -500,3 +507,4 @@ The configuration of systems matching lower bits of IPv6 addresses to
 individual customer domains must use ad hoc syntax due to the lack of
 a standard way to express semantics of matching on bit ranges other
 than address prefixes.
+
