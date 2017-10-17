@@ -5,7 +5,7 @@
 <head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
 
-  <title>IPv6 Address/Mask Notation</title>
+  <title>A Recommendation for IPv6 Address/Mask Notation</title>
 
   
 <style type="text/css">/*<![CDATA[*/
@@ -279,13 +279,13 @@ address {
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Netmask and Prefix-Length Notations">
 <link href="#rfc.section.2" rel="Chapter" title="2 Problem Description">
 <link href="#rfc.section.3" rel="Chapter" title="3 Notational Conventions">
-<link href="#rfc.section.4" rel="Chapter" title="4 IPv6 Address/Mask Notation">
+<link href="#rfc.section.4" rel="Chapter" title="4 IPv6 Address/Mask Text Representation">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 Constraints and Validation">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 Examples: groups of addresses">
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 Examples: specific addresses and groups they belong to">
-<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Textual representation of the IPv6 Address/Mask notation">
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Textual representation of the Address and Mask">
 <link href="#rfc.section.4.5" rel="Chapter" title="4.5 Use prefix length instead of mask">
-<link href="#rfc.section.5" rel="Chapter" title="5 Scoped Mask/Value specifications">
+<link href="#rfc.section.5" rel="Chapter" title="5 Scoped Mask/Value notation">
 <link href="#rfc.section.6" rel="Chapter" title="6 Compatibility and Parser guidelines">
 <link href="#rfc.section.7" rel="Chapter" title="7 Security Considerations">
 <link href="#rfc.section.8" rel="Chapter" title="8 Address Utilization Considerations">
@@ -312,9 +312,9 @@ address {
 
   <meta name="dct.creator" content="Lubashev, I. and E. Nygren" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-lubashev-ipv6-addr-mask" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-10-13" />
-  <meta name="dct.abstract" content="With significantly longer IPv6 address prefixes assigned to ISPs, operators sometimes find opportunities to assign special meaning to lower-order bit patterns. Often, these bit patterns cannot be expressed as an address prefix." />
-  <meta name="description" content="With significantly longer IPv6 address prefixes assigned to ISPs, operators sometimes find opportunities to assign special meaning to lower-order bit patterns. Often, these bit patterns cannot be expressed as an address prefix." />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-10-16" />
+  <meta name="dct.abstract" content="With significantly longer IPv6 address prefixes assigned to End Sites, operators sometimes find opportunities to devise operator-specific addressing schemes that assign operational semantics to lower-order bit ranges.  There is currently no standard or interoperable text representation of addresses sharing bit patterns than are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but its syntax is derived from the familiar address/prefix-length. The address/prefix-length notation is a special case of the address/mask notation, ensuring clarity and compatibility with existing parsers." />
+  <meta name="description" content="With significantly longer IPv6 address prefixes assigned to End Sites, operators sometimes find opportunities to devise operator-specific addressing schemes that assign operational semantics to lower-order bit ranges.  There is currently no standard or interoperable text representation of addresses sharing bit patterns than are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but its syntax is derived from the familiar address/prefix-length. The address/prefix-length notation is a special case of the address/mask notation, ensuring clarity and compatibility with existing parsers." />
 
 </head>
 
@@ -336,26 +336,25 @@ address {
 <td class="right">Akamai Technologies</td>
 </tr>
 <tr>
-<td class="left">Expires: April 16, 2018</td>
-<td class="right">October 13, 2017</td>
+<td class="left">Expires: April 19, 2018</td>
+<td class="right">October 16, 2017</td>
 </tr>
 
     	
     </tbody>
   </table>
 
-  <p class="title">IPv6 Address/Mask Notation<br />
+  <p class="title">A Recommendation for IPv6 Address/Mask Notation<br />
   <span class="filename">draft-lubashev-ipv6-addr-mask</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>With significantly longer IPv6 address prefixes assigned to ISPs, operators sometimes find opportunities to assign special meaning to lower-order bit patterns. Often, these bit patterns cannot be expressed as an address prefix.</p>
-<p>This RFC introduces IPv6 Address/Mask notation that allows one to express address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The notation is similar to the IPv4 address/mask notation in its expressiveness, but its syntax is derived from the traditional address/prefix-length notation. The traditional address/prefix-length notation is a special case of the address/mask notation.</p>
-<p>For example, using this notation, both 2001:db8::/32 and 2001:db8:://ffff:ffff:: have the same meaning.  However, the following requires the new notation: 2001:db8::1234//ffff:ffff::ffff or, equivalently, 2001:db8::1234//32+::ffff.</p>
+<p>With significantly longer IPv6 address prefixes assigned to End Sites, operators sometimes find opportunities to devise operator-specific addressing schemes that assign operational semantics to lower-order bit ranges.  There is currently no standard or interoperable text representation of addresses sharing bit patterns than are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but its syntax is derived from the familiar address/prefix-length. The address/prefix-length notation is a special case of the address/mask notation, ensuring clarity and compatibility with existing parsers.</p>
+<p>For example, using this representation, both 2001:db8::/32 and 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of addresses having the first 32 bits &#8220;2001:0db8::&#8221; and the last 16 bits &#8220;::1234&#8221; requires the new representation: 2001:db8::1234//ffff:ffff::ffff or, equivalently, 2001:db8::1234//32+::ffff.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 16, 2018.</p>
+<p>This Internet-Draft will expire on April 19, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -373,7 +372,7 @@ address {
 </li>
 <li>3.   <a href="#rfc.section.3">Notational Conventions</a>
 </li>
-<li>4.   <a href="#rfc.section.4">IPv6 Address/Mask Notation</a>
+<li>4.   <a href="#rfc.section.4">IPv6 Address/Mask Text Representation</a>
 </li>
 <ul><li>4.1.   <a href="#rfc.section.4.1">Constraints and Validation</a>
 </li>
@@ -381,11 +380,11 @@ address {
 </li>
 <li>4.3.   <a href="#rfc.section.4.3">Examples: specific addresses and groups they belong to</a>
 </li>
-<li>4.4.   <a href="#rfc.section.4.4">Textual representation of the IPv6 Address/Mask notation</a>
+<li>4.4.   <a href="#rfc.section.4.4">Textual representation of the Address and Mask</a>
 </li>
 <li>4.5.   <a href="#rfc.section.4.5">Use prefix length instead of mask</a>
 </li>
-</ul><li>5.   <a href="#rfc.section.5">Scoped Mask/Value specifications</a>
+</ul><li>5.   <a href="#rfc.section.5">Scoped Mask/Value notation</a>
 </li>
 <li>6.   <a href="#rfc.section.6">Compatibility and Parser guidelines</a>
 </li>
@@ -434,13 +433,13 @@ address {
 </h1>
 <p id="rfc.section.1.p.1">We have learned to think of IPv4 address groupings in terms of CIDR blocks, because virtually all logical address groupings fit that model well: IP address allocations, subnets, routing announcements, etc.</p>
 <p id="rfc.section.1.p.2">With the move to IPv6, the primary mechanism for address grouping remains matching by prefix length, albeit with longer prefix lengths.  This only allows for strictly hierarchical address groupings.  The longer address lengths, however, provide opportunities for assigning semantics to bit strings within addresses beyond the prefix, when allocating addresses for virtual services.</p>
-<p id="rfc.section.1.p.3">Numerous systems (see <a href="#example-systems" class="xref">Appendix A</a> for examples) have been assigning semantics to IPv6 bits past their IANA prefixes. These systems attempted to communicate address patterns underlying their system semantics both in documentation and in machine-readable configurations accompaning the systems. Due to the lack of standard notation, the documentation often resorted to pictographs and verbose English descriptions. The configuration syntax and parsers were invariably ad hoc and incompatible with other systems.</p>
+<p id="rfc.section.1.p.3">Numerous systems (see <a href="#example-systems" class="xref">Appendix A</a> for examples) have been assigning semantics to IPv6 bits past their IANA prefixes. These systems attempted to communicate address patterns underlying their system semantics both in documentation and in machine-readable configurations accompanying the systems. Due to the lack of standard textual representation, the documentation often resorted to pictographs and verbose English descriptions. The configuration syntax and parsers were invariably ad hoc and incompatible with other systems.</p>
 <p id="rfc.section.1.p.4">Here we define a syntax for specifying groupings (matching rules) of IPv6 addresses, where a set of less-significant bits have a particular value.  For example, 2001:db8::1234//ffff:ffff::ffff would match on any addresses starting with 2001:db8::/32 and ending with the last 16 bits being ::1234.</p>
-<p id="rfc.section.1.p.5">This document only concerns itself with the notational aspects of address groups that cannot be expressed as CIDR blocks. Our goal is standardizing on a consistent notation to remove a hinderance to interoperability of systems that wish to express rules and policies that apply to such address groups (see <a href="#example-systems" class="xref">Appendix A</a> for example). Guidance for the applicability of such address groupings is outside the scope of this document.</p>
+<p id="rfc.section.1.p.5">This document only concerns itself with the textual representation of address groups that cannot be expressed as CIDR blocks. Our goal is standardizing on a consistent representation to remove a hindrance to interoperability of systems that wish to express rules and policies that apply to such address groups (see <a href="#example-systems" class="xref">Appendix A</a> for examples). Guidance for the applicability of such address groupings is outside the scope of this document.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#current-notations" id="current-notations">Netmask and Prefix-Length Notations</a>
 </h1>
-<p id="rfc.section.1.1.p.1">There are two common notations for identifying groups of addresses (networks, subnets, internet routing blocks). These notations can also be used to identify an individual address and its subnet.</p>
+<p id="rfc.section.1.1.p.1">There are two common text representations for identifying groups of addresses (networks, subnets, internet routing blocks). These representations can also be used to identify an individual address and its subnet.</p>
 <p id="rfc.section.1.1.p.2">The netmask notation described by <a href="#RFC0950" class="xref">[RFC0950]</a> is commonly used for IPv4. It consists of a tuple of a network address and a network mask. For example: 198.51.100.4 netmask 255.255.255.0.</p>
 <p id="rfc.section.1.1.p.3">The address/prefix-length notation described by <a href="#RFC4632" class="xref">[RFC4632]</a> is commonly used for both IPv4 and IPv6. It consists of a tuple of a network address and a prefix length. For example: 198.51.100.4/24 or 2001:db8::1234/32.</p>
 <p id="rfc.section.1.1.p.4">Depending on the context, netmask and prefix length notations can specify either a &#8220;group of addresses&#8221; or &#8220;an individual address and a group of addresses it belongs to&#8221;.  If the network address contains one or more set bits not selected by the network mask or prefix length, then network address specifies an individual address in addition to the subnet.  For example: 198.51.100.4/24 means &#8220;address 198.51.100.4 within a group of addresses 198.51.100.0 - 198.51.100.255&#8221;.</p>
@@ -449,12 +448,12 @@ address {
 </h1>
 <p id="rfc.section.2.p.1">The problem with the prefix length notation for IPv6 is that it is not sufficiently expressive of IPv6 address groupings for a growing number of applications.</p>
 <p id="rfc.section.2.p.2">IPv6 allocation guidelines <a href="#RFC6177" class="xref">[RFC6177]</a> guarantee at least a /48 allocation to network operators and strongly recommend a multi-/64 allocation to end sites. Because these address blocks are orders of magnitude larger than any imaginable number of physical hosts, network operators are managing those addresses in new and creative ways.</p>
-<p id="rfc.section.2.p.3">Sometimes, useful address grouping are not &#8220;all addresses that share a prefix of a certain length&#8221;.  Additionally, within an administrative scope, there are use-cases where semantics are assigned to individual bits or series of bits.</p>
+<p id="rfc.section.2.p.3">Sometimes, useful address grouping are not &#8220;all addresses that share a prefix of a certain length&#8221;.  Additionally, within an administrative scope, there are use-cases where semantics are assigned to individual bit ranges.</p>
 <p id="rfc.section.2.p.4">Consider these examples:</p>
 <p></p>
 
 <ol>
-<li>Allocating a block of addresses to each host and using the least significant bits to indicate a TLS certificate.  These operators may need a way to express a rule that applies to all traffic that uses a particual TLS certificate.</li>
+<li>Allocating a block of addresses to each host and using the least significant bits to indicate a TLS certificate.  These operators may need a way to express a rule that applies to all traffic that uses a particular TLS certificate.</li>
 <li>Network operators managing multiple similar data centers may have different prefixes routed to those data centers but desire a unified set of rules for assigning, managing, and routing IPv6 addresses within those data centers. These operators need to express rules that do not depend on the prefixes of the addresses to which the rules apply.</li>
 </ol>
 <h1 id="rfc.section.3">
@@ -462,7 +461,7 @@ address {
 </h1>
 <p id="rfc.section.3.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#addr-mask-notation" id="addr-mask-notation">IPv6 Address/Mask Notation</a>
+<a href="#rfc.section.4">4.</a> <a href="#addr-mask-representation" id="addr-mask-representation">IPv6 Address/Mask Text Representation</a>
 </h1>
 <p id="rfc.section.4.p.1">This RFC extends address/prefix-length notation of <a href="#RFC4632" class="xref">[RFC4632]</a> in a way that is reminiscent of the IPv4 netmask notation of <a href="#RFC0950" class="xref">[RFC0950]</a>. The address/mask notation allows specifying IPv6 mask instead of the prefix length.</p>
 <p id="rfc.section.4.p.2">The address/mask notation is defined as:</p>
@@ -470,11 +469,11 @@ address {
    ADDRESS // MASK
 </pre>
 <p id="rfc.section.4.p.3">Both ADDRESS and MASK are IPv6 addresses.  The MASK indicates which bits of the ADDRESS are relevant for the address grouping.  Note that the MASK may be sparse and is not strictly a prefix. For example: 2001:db8::1234//ffff:ffff::ffff.</p>
-<p id="rfc.section.4.p.4">The &#8220;//&#8221; was chosen as a separator for address/mask notation, since it is similar to the &#8220;/&#8221; separator used by address/prefix-length notation (and hence is readily recognizeable) but prevents incorrectly parsing address/mask as address/prefix-length.</p>
+<p id="rfc.section.4.p.4">The &#8220;//&#8221; was chosen as a separator for address/mask notation, since it is similar to the &#8220;/&#8221; separator used by address/prefix-length (and hence is readily recognizable) but prevents incorrectly parsing address/mask as address/prefix-length.</p>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#validation" id="validation">Constraints and Validation</a>
 </h1>
-<p id="rfc.section.4.1.p.1">To be a valid definition for just a group of addresses, the ADDRESS part MUST NOT have any bits set outside of the MASK. Otherwise, the notation identifies an individual address and a group of addresses it belongs to.</p>
+<p id="rfc.section.4.1.p.1">To be a valid definition for just a group of addresses, the ADDRESS part MUST NOT have any bits set outside of the MASK. Otherwise, the ADDRESS // MASK represents an individual address and a group of addresses it belongs to.</p>
 <h1 id="rfc.section.4.2">
 <a href="#rfc.section.4.2">4.2.</a> <a href="#examples-groups-of-addresses" id="examples-groups-of-addresses">Examples: groups of addresses</a>
 </h1>
@@ -496,7 +495,7 @@ address {
 <li>2001:db8::1//ffff:ffff::  <br><br> This is equivalent to 2001:db8::1/32.</li>
 </ol>
 <h1 id="rfc.section.4.4">
-<a href="#rfc.section.4.4">4.4.</a> <a href="#textual-representation-of-the-ipv6-addressmask-notation" id="textual-representation-of-the-ipv6-addressmask-notation">Textual representation of the IPv6 Address/Mask notation</a>
+<a href="#rfc.section.4.4">4.4.</a> <a href="#textual-representation-of-the-address-and-mask" id="textual-representation-of-the-address-and-mask">Textual representation of the Address and Mask</a>
 </h1>
 <p id="rfc.section.4.4.p.1">When IPv6 mask is used after &#8220;//&#8221;, both the network address and mask parts MUST be formatted as IPv6 addresses and, therefore, their canonical textual representation is dictated by <a href="#RFC5952" class="xref">[RFC5952]</a>.</p>
 <h1 id="rfc.section.4.5">
@@ -504,33 +503,33 @@ address {
 </h1>
 <p id="rfc.section.4.5.p.1">The canonical representation of a group of IPv6 addresses MUST use a prefix length instead of a mask if possible.  That is, if the mask has all its most-significant bits set, up to some bit, followed by all clear bits, then the canonical representation MUST use a prefix length.</p>
 <h1 id="rfc.section.5">
-<a href="#rfc.section.5">5.</a> <a href="#scoped" id="scoped">Scoped Mask/Value specifications</a>
+<a href="#rfc.section.5">5.</a> <a href="#scoped" id="scoped">Scoped Mask/Value notation</a>
 </h1>
-<p id="rfc.section.5.p.1">A common use-case is to specify an address/mask filter within a prefix scope.  For example, all addresses ending with ::1234 within 2001:db8::/32 can be specified as 2001:db8::1234//ffff:ffff::ffff.</p>
-<p id="rfc.section.5.p.2">To make these easier to operationally manage and validate, it helps to have an explicit convention for representing these.  For example: 2001:db8::1234//32+::ffff.</p>
+<p id="rfc.section.5.p.1">Since assigning operator-specific semantics to bit ranges is only possible within the address space assigned to the operator by IANA, a common use-case is to specify an address/mask within an IANA-assigned prefix scope.  For example, all addresses ending with ::1234 within 2001:db8::/32 can be specified as 2001:db8::1234//ffff:ffff::ffff.</p>
+<p id="rfc.section.5.p.2">To make these representations easier to operationally manage and validate, it helps to have an explicit convention for representing prefixes within address groups.  For example, 2001:db8::1234//ffff:ffff::ffff can be represented as 2001:db8::1234//32+::ffff.</p>
 <p id="rfc.section.5.p.3">This is specified as:</p>
 <pre>
     ADDRESS // PFX_LEN + SCOPED_MASK
 </pre>
-<p id="rfc.section.5.p.4">These can be canonicalized into a ADDRESS // MASK notation. The canonical MASK is constructed by performing the bitwise-or of SCOPED_MASK and the mask derived from an address with the PFX_LEN most-significant bits set.</p>
+<p id="rfc.section.5.p.4">Scoped Mask/Value notation representation can be canonicalized using a ADDRESS // MASK notation. The canonical MASK is constructed by performing the bitwise-or of SCOPED_MASK and the mask derived from an address with the PFX_LEN most-significant bits set.</p>
 <p id="rfc.section.5.p.5">The the PFX_LEN most-significant bits MUST NOT be set in SCOPED_MASK.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#compatibility" id="compatibility">Compatibility and Parser guidelines</a>
 </h1>
 <p id="rfc.section.6.p.1">Only parsers that wish to support address groupings that cannot be represented using address/prefix-length are required to support address/mask notation.</p>
-<p id="rfc.section.6.p.2">Systems that support communicating address grouping in address/mask notation to other systems SHOULD communicate such grouping in canonical address/prefix-mask notation, if possible.  This would ensure compatibility with systems that do not support address/mask configurations, if all configured address groupings are proper CIDR prefixes.</p>
-<p id="rfc.section.6.p.3">Address groupings that cannot be expressed using address/prefix-mask notation MAY be comminicated using Scoped Mask/Value (<a href="#scoped" class="xref">Section 5</a>) notation, as long as the PFX_LEN (semantic prefix scope) has been configured via external means (i.e. not automatically derived from the MASK bitmap by the system itself).</p>
+<p id="rfc.section.6.p.2">Systems that support communicating address grouping in address/mask notation to other systems SHOULD communicate such grouping in canonical address/prefix-mask notation, if possible.  This ensures compatibility with systems that do not support address/mask notation, if all configured address groupings are proper CIDR prefixes.</p>
+<p id="rfc.section.6.p.3">Address groupings that cannot be expressed using address/prefix-length notation MAY be communicated using Scoped Mask/Value (<a href="#scoped" class="xref">Section 5</a>) notation, as long as the PFX_LEN (semantic prefix scope) has been configured via external means (i.e. PFX_LEN SHOULD NOT be automatically derived from the MASK bitmap by the system itself).</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#security" id="security">Security Considerations</a>
 </h1>
-<p id="rfc.section.7.p.1">This document only specifies IPv6 address grouping notation and its meaning and does not intend to specify when matching based on bit substrings is applicable or appropriate.</p>
-<p id="rfc.section.7.p.2">IP addresses can be spoofed or attacker-controlled.  This is especially true of IPv6 addresses differing only in less-significant bits and belonging to different administrative domains. When used in policies applied to incoming traffic, the MASK part of the address/mask notation SHOULD have as many set bits as the semantics of the policy would allow.</p>
-<p id="rfc.section.7.p.3">Operators wishing to assign semantics to bit subscrings in addresses should be aware that these semantics may be guessable or leaked outside the organization. Hence, there is a risk of privacy/information leakage.</p>
+<p id="rfc.section.7.p.1">This document only defines textual representation for IPv6 address groupings.  It does not intend to recommend when assigning semantics to specific bit ranges and matching based on bit substrings is applicable or appropriate.</p>
+<p id="rfc.section.7.p.2">IP addresses can be spoofed or be attacker-controlled.  This is especially true of IPv6 addresses differing only in less-significant bits and belonging to different administrative domains.  When used in policies applied to incoming traffic, the MASK part of the address/mask notation SHOULD have as many set bits as the semantics of the policy would allow.</p>
+<p id="rfc.section.7.p.3">Operators wishing to assign semantics to bit ranges should be aware that these semantics may be guessable or leaked outside the organization. Hence, there is a risk of privacy/information leakage.</p>
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#utilization" id="utilization">Address Utilization Considerations</a>
 </h1>
 <p id="rfc.section.8.p.1">Since IPv6 allocation guidelines <a href="#RFC6177" class="xref">[RFC6177]</a> guarantee at least a /48 allocation to network operators, it would be an enormous waste of the address space to assign IPv6 addresses only to physical hosts or network interfaces.</p>
-<p id="rfc.section.8.p.2">On the other hand, a gratuitous use of lower address bits can lead to a premature address space exhaustion and difficulties in adapting to the future needs of the organization within the assigned address space. An example of such gratuitous use is designating large parts of the address space for a bitmask where only a small fraction of all possible bit combinations is utilized.</p>
+<p id="rfc.section.8.p.2">On the other hand, a gratuitous use of lower address bits can lead to a premature address space exhaustion and difficulties in adapting to the future needs of the organization within the assigned address space.  An example of such gratuitous use is designating large parts of the address space for a bitmask, where only a small fraction of all possible bit combinations is utilized.</p>
 <h1 id="rfc.section.9">
 <a href="#rfc.section.9">9.</a> <a href="#iana" id="iana">IANA Considerations</a>
 </h1>
@@ -546,6 +545,8 @@ address {
 <ul>
 <li>Changed separator from &#8220;/&#8221; to &#8220;//&#8221;</li>
 <li>Addressed privacy in <a href="#security" class="xref">Section 7</a>
+</li>
+<li>Added <a href="#compatibility" class="xref">Section 6</a>
 </li>
 <li>Added <a href="#utilization" class="xref">Section 8</a>
 </li>
