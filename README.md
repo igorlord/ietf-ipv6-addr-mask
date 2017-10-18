@@ -1,6 +1,6 @@
-# IPv6 Address/Mask Notation
+# A Recommendation for IPv6 Address/Mask Notation
 
-This is the working area for the individual Internet-Draft, "IPv6 Address/Mask Notation".
+This is the working area for the individual Internet-Draft, "A Recommendation for IPv6 Address/Mask Notation".
 
 * [Editor's Copy](https://igorlord.github.io/ietf-ipv6-addr-mask/#go.draft-lubashev-ipv6-addr-mask.html)
 * [Working Group Draft](https://tools.ietf.org/html/draft-lubashev-ipv6-addr-mask)
