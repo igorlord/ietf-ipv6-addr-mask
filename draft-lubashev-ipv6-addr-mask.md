@@ -97,17 +97,17 @@ informative:
 
 --- abstract
 
-With /48 IPv6 address prefixes assigned to network operators, the
-operators sometimes find opportunities to devise addressing schemes
-that assign operational semantics to lower-order bit ranges.  There is
-currently no standard or interoperable text representation of
-addresses sharing bit patterns than are not prefixes. This RFC
-introduces IPv6 Address/Mask notation that allows one to represent
-address groupings beyond "all addresses that share a single
-prefix". The representation is similar to the IPv4 address/mask
-notation in its expressiveness, but it is derived from the familiar
-address/prefix-length notation for clarity and compatibility with
-existing parsers.
+Since network operators are commonly assigned at least /48 IPv6
+address prefixes, the operators sometimes find opportunities to devise
+addressing schemes that further assign operational semantics to less
+significant bit ranges.  There is currently no standard or
+interoperable textual representation of addresses sharing bit patterns
+than are not prefixes. This RFC introduces IPv6 Address/Mask notation
+that allows one to represent address groupings beyond "all addresses
+that share a single prefix". The representation is similar to the IPv4
+address/mask notation in its expressiveness, but it is derived from
+the familiar address/prefix-length notation for clarity and
+compatibility with existing parsers.
 
 For example, using this representation, both 2001:db8::/32 and
 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
@@ -138,7 +138,7 @@ assigning semantics to IPv6 bits that come after IANA prefix
 bits. These systems attempted to communicate address patterns
 underlying their system semantics both in documentation and in
 machine-readable configurations accompanying the systems. Due to the
-lack of standard textual representation, the documentation often
+lack of a standard textual representation, the documentation often
 resorted to pictographs and verbose English descriptions. The
 configuration syntax and parsers were invariably ad hoc and
 incompatible with other systems.
@@ -161,7 +161,7 @@ outside the scope of this document.
 Netmask and Prefix-Length Notations         {#current-notations}
 -----------------------------------
 
-There are two common text representations for identifying groups of
+There are two common textual representations for identifying groups of
 addresses (networks, subnets, internet routing blocks). These
 representations can also be used to identify an individual address and
 its subnet.
@@ -192,8 +192,8 @@ The problem with the prefix length notation for IPv6 is that it is not
 sufficiently expressive of IPv6 address groupings for a growing number
 of applications.
 
-IPv6 allocation guidelines {{!RFC6177}} guarantee at least a /48
-allocation to network operators and strongly recommend a multi-/64
+IPv6 address allocation guidelines {{!RFC6177}} guarantee at least a
+/48 allocation to network operators and strongly recommend a multi-/64
 allocation to end sites. Because these address blocks are orders of
 magnitude larger than any imaginable number of physical hosts, network
 operators are managing those addresses in new and creative ways.
@@ -226,8 +226,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 document are to be interpreted as described in {{!RFC2119}}.
 
 
-IPv6 Address/Mask Text Representation      {#addr-mask-representation}
-=====================================
+IPv6 Address/Mask Textual Representation      {#addr-mask-representation}
+========================================
 
 This RFC extends address/prefix-length notation of {{!RFC4632}} in a
 way that is reminiscent of the IPv4 netmask notation of
@@ -492,8 +492,8 @@ altitude, in predefined ranges of bits of an IPv6 address past their
 IANA prefix.
 
 
-Customer IDs as low-order bits
-------------------------------
+Customer IDs in less significant bits
+-------------------------------------
 
 CDNs (and other hosting providers) host web sites belonging to
 multiple customers using the same servers.  Due to the lack of support
