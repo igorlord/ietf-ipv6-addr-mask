@@ -78,7 +78,7 @@ informative:
     author:
      -
       name: Andre Kostur
-      org: incognito
+      org: Incognito
     date: July 2, 2015
   GeoAddressPatent:
     target: http://patft1.uspto.gov/netacgi/nph-Parser?patentnumber=7929535
@@ -98,16 +98,17 @@ informative:
 --- abstract
 
 Since network operators are commonly assigned at least /48 IPv6
-address prefixes, the operators sometimes find opportunities to devise
-addressing schemes that further assign operational semantics to less
-significant bit ranges.  There is currently no standard or
-interoperable textual representation of addresses sharing bit patterns
-than are not prefixes. This RFC introduces IPv6 Address/Mask notation
-that allows one to represent address groupings beyond "all addresses
-that share a single prefix". The representation is similar to the IPv4
-address/mask notation in its expressiveness, but it is derived from
-the familiar address/prefix-length notation for clarity and
-compatibility with existing parsers.
+address prefixes, the operators and standards occasionally find
+opportunities to devise addressing schemes that further assign
+operational semantics to less significant bit ranges.  There is
+currently no standard or interoperable textual representation of
+addresses sharing bit patterns that are not prefixes. This RFC
+introduces IPv6 Address/Mask notation that allows one to represent
+address groupings beyond "all addresses that share a single
+prefix". The representation is similar to the IPv4 address/mask
+notation in its expressiveness, but it is derived from the familiar
+address/prefix-length notation for clarity and compatibility with
+existing parsers.
 
 For example, using this representation, both 2001:db8::/32 and
 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
@@ -135,16 +136,16 @@ prefix, especially when allocating addresses for virtual services.
 
 Numerous systems (see {{example-systems}} for examples) have been
 assigning semantics to IPv6 bits that come after IANA prefix
-bits. These systems attempted to communicate address patterns
-underlying their system semantics both in documentation and in
-machine-readable configurations accompanying the systems. Due to the
-lack of a standard textual representation, the documentation often
+bits. Developers of these systems attempted to communicate address
+patterns underlying their system semantics both in documentation and
+in machine-readable configurations accompanying the systems. Due to
+the lack of a standard textual representation, the documentation often
 resorted to pictographs and verbose English descriptions. The
 configuration syntax and parsers were invariably ad hoc and
 incompatible with other systems.
 
 Here we define a syntax for representing groupings (matching rules) of
-IPv6 addresses, where a set of less-significant bits have a particular
+IPv6 addresses, where a set of less significant bits have a particular
 value.  For example, 2001:db8::1234//ffff:ffff::ffff matches all
 addresses whose 32 most significant bits are 2001:0db8 and whose 16
 least significant bits are 1234.
@@ -177,9 +178,9 @@ network address and a prefix length. For example: 198.51.100.4/24 or
 
 Depending on the context, netmask and prefix length notations can
 specify either a "group of addresses" or "an individual address and a
-group of addresses it belongs to".  If the network address contains
-one or more set bits not selected by the network mask or prefix
-length, then network address specifies an individual address in
+group of addresses to which it belongs".  If the network address
+contains one or more set bits not selected by the network mask or
+prefix length, then network address specifies an individual address in
 addition to the subnet.  For example: 198.51.100.4/24 means "address
 198.51.100.4 within a group of addresses 198.51.100.0 -
 198.51.100.255".
@@ -273,8 +274,8 @@ Examples: groups of addresses
 
    This is equivalent to 2001:db8::/32.
 
-Examples: specific addresses and groups they belong to
-------------------------------------------------------
+Examples: specific addresses and groups to which they belong
+------------------------------------------------------------
 
 1. 2001:db8::1:1234//ffff:ffff::ffff
 
@@ -304,7 +305,7 @@ Use prefix length instead of mask
 
 The canonical representation of a group of IPv6 addresses MUST use a
 prefix length instead of a mask if possible.  That is, if the mask has
-all its most-significant bits set, up to some bit, followed by all
+all its most significant bits set, up to some bit, followed by all
 clear bits, then the canonical representation MUST use a prefix
 length.
 
@@ -318,11 +319,10 @@ common use-case is to specify an address/mask within an IANA-assigned
 prefix scope.  For example, all addresses ending with ::1234 within
 2001:db8::/32 can be specified as 2001:db8::1234//ffff:ffff::ffff.
 
-To make these representations easier to operationally manage and
-validate, it helps to have an explicit convention for representing
-prefixes within address groups.  For example,
-2001:db8::1234//ffff:ffff::ffff can be represented as
-2001:db8::1234//32+::ffff.
+To make these representations easier to manage and validate, it helps
+to have an explicit convention for representing prefixes within
+address groups.  For example, 2001:db8::1234//ffff:ffff::ffff can be
+represented as 2001:db8::1234//32+::ffff.
 
 This is specified as:
 
@@ -331,9 +331,9 @@ This is specified as:
 Scoped Mask/Value notation representation can be canonicalized using a
 ADDRESS // MASK notation. The canonical MASK is constructed by
 performing the bitwise-or of SCOPED_MASK and the mask derived from an
-address with the PFX_LEN most-significant bits set.
+address with the PFX_LEN most significant bits set.
 
-The the PFX_LEN most-significant bits MUST NOT be set in SCOPED_MASK.
+The PFX_LEN most significant bits MUST NOT be set in SCOPED_MASK.
 
 
 Compatibility and Parser guidelines   {#compatibility}
@@ -345,7 +345,7 @@ address/mask notation.
 
 Systems that support communicating address grouping in address/mask
 notation to other systems SHOULD communicate such grouping in
-canonical address/prefix-mask notation, if possible.  This ensures
+canonical address/prefix-length notation, if possible.  This ensures
 compatibility with systems that do not support address/mask notation,
 if all configured address groupings are proper CIDR prefixes.
 
@@ -364,8 +364,8 @@ groupings.  It does not intend to recommend when assigning semantics
 to specific bit ranges and matching based on bit substrings is
 applicable or appropriate.
 
-IP addresses can be spoofed or be attacker-controlled.  This is
-especially true of IPv6 addresses differing only in less-significant
+IP addresses can be spoofed or attacker-controlled.  This is
+especially true of IPv6 addresses differing only in less significant
 bits and belonging to different administrative domains.  When used in
 policies applied to incoming traffic, the MASK part of the
 address/mask notation SHOULD have as many set bits as the semantics of
@@ -447,7 +447,7 @@ Teredo
 
 Teredo protocol {{?RFC4380}} uses four bit ranges past Teredo IANA
 prefix bits to encode server and client IPv4 addresses, a flags
-bitmap, and a port.
+bitmap, and a port (section "4. Teredo Addresses").
 
 
 OpenFlow Switch Configuration
@@ -469,7 +469,7 @@ type in IPv6 address bits that come after IANA prefix bits. The system
 was launched in 2012.
 
 
-SURFnet IPv6 Address Plan and incognito Routing Plan
+SURFnet IPv6 Address Plan and Incognito Routing Plan
 ----------------------------------------------------
 
 SURFnet published a white paper {{SURFnetAddrPlan}} advocating that
@@ -495,16 +495,15 @@ IANA prefix.
 Customer IDs in less significant bits
 -------------------------------------
 
-CDNs (and other hosting providers) host web sites belonging to
-multiple customers using the same servers.  Due to the lack of support
-for SNI TLS extension {{?RFC6066}} by some user agents active on the
-Internet, CDNs resort to using unique IP addresses to identify
-specific customer domains and, hence, certificates for TLS
-negotiation.  In case of IPv6 addresses, at least some CDNs use the
-less significant bits of an IPv6 address to identify customer domains
-(while the more significant bits carry internal routing information).
-The configuration of systems matching lower bits of IPv6 addresses to
-individual customer domains must use ad hoc syntax due to the lack of
-a standard way to express semantics of matching on bit ranges other
-than address prefixes.
+CDNs and hosting providers host web sites belonging to multiple
+customers using shared servers.  Due to the lack of support for SNI
+TLS extension {{?RFC6066}} by some user agents active on the Internet,
+CDNs resort to using unique IP addresses to identify specific customer
+domains and, hence, certificates for TLS negotiation.  In case of IPv6
+addresses, at least some CDNs use the less significant bits of an IPv6
+address to identify customer domains (while the more significant bits
+carry internal routing information).  The configuration of systems
+matching lower bits of IPv6 addresses to individual customer domains
+must use ad hoc syntax due to the lack of a standard way to express
+semantics of matching on bit ranges other than address prefixes.
 
