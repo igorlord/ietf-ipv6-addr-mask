@@ -5,7 +5,7 @@
 IPv6 Operations                                              I. Lubashev
 Internet-Draft                                                 E. Nygren
 Intended status: Informational                       Akamai Technologies
-Expires: April 29, 2018                                 October 26, 2017
+Expires: April 30, 2018                                 October 27, 2017
 
 
             A Recommendation for IPv6 Address/Mask Notation
@@ -14,16 +14,17 @@ Expires: April 29, 2018                                 October 26, 2017
 Abstract
 
    Since network operators are commonly assigned at least /48 IPv6
-   address prefixes, the operators sometimes find opportunities to
-   devise addressing schemes that further assign operational semantics
-   to less significant bit ranges.  There is currently no standard or
-   interoperable textual representation of addresses sharing bit
-   patterns that are not prefixes.  This RFC introduces IPv6 Address/
-   Mask notation that allows one to represent address groupings beyond
-   "all addresses that share a single prefix".  The representation is
-   similar to the IPv4 address/mask notation in its expressiveness, but
-   it is derived from the familiar address/prefix-length notation for
-   clarity and compatibility with existing parsers.
+   address prefixes, the operators and standards occasionally find
+   opportunities to devise addressing schemes that further assign
+   operational semantics to less significant bit ranges.  There is
+   currently no standard or interoperable textual representation of
+   addresses sharing bit patterns that are not prefixes.  This RFC
+   introduces IPv6 Address/Mask notation that allows one to represent
+   address groupings beyond "all addresses that share a single prefix".
+   The representation is similar to the IPv4 address/mask notation in
+   its expressiveness, but it is derived from the familiar address/
+   prefix-length notation for clarity and compatibility with existing
+   parsers.
 
    For example, using this representation, both 2001:db8::/32 and
    2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
@@ -47,13 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 29, 2018.
+   This Internet-Draft will expire on April 30, 2018.
 
 
 
 
-
-Lubashev & Nygren        Expires April 29, 2018                 [Page 1]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 1]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -102,14 +102,14 @@ Table of Contents
      A.2.  Teredo  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      A.3.  OpenFlow Switch Configuration . . . . . . . . . . . . . .  11
      A.4.  TeraStream IPv6 Addressing  . . . . . . . . . . . . . . .  11
-     A.5.  SURFnet IPv6 Address Plan and incognito Routing Plan  . .  11
+     A.5.  SURFnet IPv6 Address Plan and Incognito Routing Plan  . .  11
      A.6.  Geolocation-based addressing method for IPv6 addresses  .  12
      A.7.  Customer IDs in less significant bits . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 2]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 2]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 3]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 3]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 4]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 4]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 5]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 5]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -333,7 +333,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 6]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 6]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 7]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 7]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 8]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 8]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                 [Page 9]
+Lubashev & Nygren        Expires April 30, 2018                 [Page 9]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                 v6AddrMask                   October 2017
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                [Page 10]
+Lubashev & Nygren        Expires April 30, 2018                [Page 10]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -584,7 +584,7 @@ A.2.  Teredo
 
    Teredo protocol [RFC4380] uses four bit ranges past Teredo IANA
    prefix bits to encode server and client IPv4 addresses, a flags
-   bitmap, and a port.
+   bitmap, and a port (section "4.  Teredo Addresses").
 
 A.3.  OpenFlow Switch Configuration
 
@@ -601,7 +601,7 @@ A.4.  TeraStream IPv6 Addressing
    type in IPv6 address bits that come after IANA prefix bits.  The
    system was launched in 2012.
 
-A.5.  SURFnet IPv6 Address Plan and incognito Routing Plan
+A.5.  SURFnet IPv6 Address Plan and Incognito Routing Plan
 
    SURFnet published a white paper [SURFnetAddrPlan] advocating that
    ISPs use bit ranges past their IANA prefix to encode geo-location and
@@ -613,7 +613,7 @@ A.5.  SURFnet IPv6 Address Plan and incognito Routing Plan
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                [Page 11]
+Lubashev & Nygren        Expires April 30, 2018                [Page 11]
 
 Internet-Draft                 v6AddrMask                   October 2017
 
@@ -669,4 +669,4 @@ Authors' Addresses
 
 
 
-Lubashev & Nygren        Expires April 29, 2018                [Page 12]
+Lubashev & Nygren        Expires April 30, 2018                [Page 12]

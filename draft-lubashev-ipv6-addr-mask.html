@@ -301,7 +301,7 @@ address {
 <link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 Teredo">
 <link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 OpenFlow Switch Configuration">
 <link href="#rfc.appendix.A.4" rel="Chapter" title="A.4 TeraStream IPv6 Addressing">
-<link href="#rfc.appendix.A.5" rel="Chapter" title="A.5 SURFnet IPv6 Address Plan and incognito Routing Plan">
+<link href="#rfc.appendix.A.5" rel="Chapter" title="A.5 SURFnet IPv6 Address Plan and Incognito Routing Plan">
 <link href="#rfc.appendix.A.6" rel="Chapter" title="A.6 Geolocation-based addressing method for IPv6 addresses">
 <link href="#rfc.appendix.A.7" rel="Chapter" title="A.7 Customer IDs in less significant bits">
 <link href="#rfc.authors" rel="Chapter">
@@ -312,9 +312,9 @@ address {
 
   <meta name="dct.creator" content="Lubashev, I. and E. Nygren" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-lubashev-ipv6-addr-mask-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-10-26" />
-  <meta name="dct.abstract" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators sometimes find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
-  <meta name="description" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators sometimes find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-10-27" />
+  <meta name="dct.abstract" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
+  <meta name="description" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
 
 </head>
 
@@ -336,8 +336,8 @@ address {
 <td class="right">Akamai Technologies</td>
 </tr>
 <tr>
-<td class="left">Expires: April 29, 2018</td>
-<td class="right">October 26, 2017</td>
+<td class="left">Expires: April 30, 2018</td>
+<td class="right">October 27, 2017</td>
 </tr>
 
     	
@@ -348,13 +348,13 @@ address {
   <span class="filename">draft-lubashev-ipv6-addr-mask-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators sometimes find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers.</p>
+<p>Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers.</p>
 <p>For example, using this representation, both 2001:db8::/32 and 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of addresses having the first 32 bits &#8220;2001:0db8::&#8221; and the last 16 bits &#8220;::1234&#8221; requires the new representation: 2001:db8::1234//ffff:ffff::ffff or, equivalently, 2001:db8::1234//32+::ffff.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 29, 2018.</p>
+<p>This Internet-Draft will expire on April 30, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -416,7 +416,7 @@ address {
 </li>
 <li>A.4.   <a href="#rfc.appendix.A.4">TeraStream IPv6 Addressing</a>
 </li>
-<li>A.5.   <a href="#rfc.appendix.A.5">SURFnet IPv6 Address Plan and incognito Routing Plan</a>
+<li>A.5.   <a href="#rfc.appendix.A.5">SURFnet IPv6 Address Plan and Incognito Routing Plan</a>
 </li>
 <li>A.6.   <a href="#rfc.appendix.A.6">Geolocation-based addressing method for IPv6 addresses</a>
 </li>
@@ -604,7 +604,7 @@ address {
 <tr>
 <td class="reference"><b id="IncognitoRoutingPlan">[IncognitoRoutingPlan]</b></td>
 <td class="top">
-<a title="incognito">Kostur, A.</a>, "<a href="https://www.incognito.com/tips-and-tutorials/how-to-plan-routing-for-ipv6">How to Plan Routing for IPv6</a>", July 2015.</td>
+<a title="Incognito">Kostur, A.</a>, "<a href="https://www.incognito.com/tips-and-tutorials/how-to-plan-routing-for-ipv6">How to Plan Routing for IPv6</a>", July 2015.</td>
 </tr>
 <tr>
 <td class="reference"><b id="OpenFlow">[OpenFlow]</b></td>
@@ -643,7 +643,7 @@ address {
 <h1 id="rfc.appendix.A.2">
 <a href="#rfc.appendix.A.2">A.2.</a> <a href="#teredo" id="teredo">Teredo</a>
 </h1>
-<p id="rfc.section.A.2.p.1">Teredo protocol <a href="#RFC4380" class="xref">[RFC4380]</a> uses four bit ranges past Teredo IANA prefix bits to encode server and client IPv4 addresses, a flags bitmap, and a port.</p>
+<p id="rfc.section.A.2.p.1">Teredo protocol <a href="#RFC4380" class="xref">[RFC4380]</a> uses four bit ranges past Teredo IANA prefix bits to encode server and client IPv4 addresses, a flags bitmap, and a port (section &#8220;4. Teredo Addresses&#8221;).</p>
 <h1 id="rfc.appendix.A.3">
 <a href="#rfc.appendix.A.3">A.3.</a> <a href="#openflow-switch-configuration" id="openflow-switch-configuration">OpenFlow Switch Configuration</a>
 </h1>
@@ -653,7 +653,7 @@ address {
 </h1>
 <p id="rfc.section.A.4.p.1">TeraStream <a href="#TeraStream" class="xref">[TeraStream]</a> system is using bit ranges to encode service type in IPv6 address bits that come after IANA prefix bits. The system was launched in 2012.</p>
 <h1 id="rfc.appendix.A.5">
-<a href="#rfc.appendix.A.5">A.5.</a> <a href="#surfnet-ipv6-address-plan-and-incognito-routing-plan" id="surfnet-ipv6-address-plan-and-incognito-routing-plan">SURFnet IPv6 Address Plan and incognito Routing Plan</a>
+<a href="#rfc.appendix.A.5">A.5.</a> <a href="#surfnet-ipv6-address-plan-and-incognito-routing-plan" id="surfnet-ipv6-address-plan-and-incognito-routing-plan">SURFnet IPv6 Address Plan and Incognito Routing Plan</a>
 </h1>
 <p id="rfc.section.A.5.p.1">SURFnet published a white paper <a href="#SURFnetAddrPlan" class="xref">[SURFnetAddrPlan]</a> advocating that ISPs use bit ranges past their IANA prefix to encode geo-location and address use types. The white paper is giving examples of a sample address allocation that uses one nibble (bits 68-71) for encoding geo-location and another nibble (bits 64-67) for the use type.</p>
 <p id="rfc.section.A.5.p.2">IPv6 Routing Plan <a href="#IncognitoRoutingPlan" class="xref">[IncognitoRoutingPlan]</a> by incognito is advocating allocating bit ranges past an IANA prefix to designate various address attributes, including &#8220;subnet types&#8221;.</p>
