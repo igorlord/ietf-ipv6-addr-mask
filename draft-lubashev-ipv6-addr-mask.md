@@ -98,17 +98,19 @@ informative:
 --- abstract
 
 Since network operators are commonly assigned at least /48 IPv6
-address prefixes, the operators and standards occasionally find
-opportunities to devise addressing schemes that further assign
-operational semantics to less significant bit ranges.  There is
-currently no standard or interoperable textual representation of
-addresses sharing bit patterns that are not prefixes. This RFC
-introduces IPv6 Address/Mask notation that allows one to represent
-address groupings beyond "all addresses that share a single
-prefix". The representation is similar to the IPv4 address/mask
-notation in its expressiveness, but it is derived from the familiar
-address/prefix-length notation for clarity and compatibility with
-existing parsers.
+address prefixes, the operators frequently find opportunities to
+devise addressing schemes that assign operational semantics to less
+significant bit ranges. To implement policies based on bits in IPv6
+addresses, the operators need a way to configure their equipment.
+This RFC describes a textual representation of addresses sharing bit
+patterns that are not prefixes.  Once an interoperable notation is
+standartized and implemented by vendors, operators would find it
+possible to configure policies they desire for their networks.
+
+This RFC introduces IPv6 Address/Mask notation that is similar to the
+IPv4 address/mask notation in its expressiveness, but it is derived
+from the familiar address/prefix-length notation for clarity and
+compatibility with existing parsers.
 
 For example, using this representation, both 2001:db8::/32 and
 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of
@@ -126,13 +128,15 @@ Introduction     {#introduction}
 We have learned to think of IPv4 address groupings in terms of CIDR
 blocks, because virtually all logical address groupings fit that model
 well: IP address allocations, subnets, routing announcements, etc.
-
 With the move to IPv6, the primary mechanism for address grouping
 remains matching by prefix length, albeit with longer prefix lengths.
-This only allows for strictly hierarchical address groupings.  The
-longer address lengths, however, provide opportunities for assigning
-operator-specific semantics to bit strings within addresses beyond the
-prefix, especially when allocating addresses for virtual services.
+
+While longer interface identifiers are useful for end user privacy
+purposes, infrustructure networks and networks hosting content are
+finding opportunities for assigning operator-specific semantics to bit
+strings within addresses beyond the prefix.  Structured addressing
+scheme for virtual services reduces complexity of managing addresses
+and allows for concise policy definitions.
 
 Numerous systems (see {{example-systems}} for examples) have been
 assigning semantics to IPv6 bits that come after IANA prefix
@@ -148,15 +152,13 @@ Here we define a syntax for representing groupings (matching rules) of
 IPv6 addresses, where a set of less significant bits have a particular
 value.  For example, 2001:db8::1234//ffff:ffff::ffff matches all
 addresses whose 32 most significant bits are 2001:0db8 and whose 16
-least significant bits are 1234.
+least significant bits are 0x1234.
 
-This document only concerns itself with the textual representation of
-address groups that cannot be expressed as CIDR blocks. Our goal is
-standardizing on a consistent representation to remove a hindrance to
-interoperability of systems that wish to express rules and policies
-that apply to such address groups (see {{example-systems}} for
-examples). Guidance for the applicability of such address groupings is
-outside the scope of this document.
+The goal of this document is removing a hindrance to interoperability
+of systems that wish to express rules and policies that apply to
+address groups that cannot be expressed as CIDR blocks (see
+{{example-systems}} for examples).  Guidance for the applicability of
+such address groupings is outside the scope of this document.
 
 
 Netmask and Prefix-Length Notations         {#current-notations}
@@ -267,8 +269,8 @@ Examples: groups of addresses
 
 2. ::aa00:1234//::ff00:ffff
 
-   This specifies IPv6 addresses that have "aa" in bits 24-31 and
-   "1234" in bits 0-15.
+   This specifies IPv6 addresses that have 0xaa in bits 24-31 and
+   0x1234 in bits 0-15.
 
 3. 2001:db8:://ffff:ffff::
 
@@ -286,7 +288,7 @@ Examples: specific addresses and groups to which they belong
 2. 2001:db8::aa00:1234//::ff00:ffff
 
    This specifies IPv6 address 2001:db8::aa00:1234 that belongs to a
-   group of addresses that have "aa" in bits 24-31 and "1234" in bits
+   group of addresses that have 0xaa in bits 24-31 and 0x1234 in bits
    0-15.
 
 3. 2001:db8::1//ffff:ffff::
