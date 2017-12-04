@@ -33,6 +33,7 @@
   ul.toc {
     top: 80px;
     overflow: auto;
+    overscroll-behavior: contain;
   }
 
   body {
@@ -312,9 +313,9 @@ address {
 
   <meta name="dct.creator" content="Lubashev, I. and E. Nygren" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-lubashev-ipv6-addr-mask-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-10-27" />
-  <meta name="dct.abstract" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
-  <meta name="description" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers." />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-12-4" />
+  <meta name="dct.abstract" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators frequently find opportunities to devise addressing schemes that assign operational semantics to less significant bit ranges." />
+  <meta name="description" content="Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators frequently find opportunities to devise addressing schemes that assign operational semantics to less significant bit ranges." />
 
 </head>
 
@@ -336,8 +337,8 @@ address {
 <td class="right">Akamai Technologies</td>
 </tr>
 <tr>
-<td class="left">Expires: April 30, 2018</td>
-<td class="right">October 27, 2017</td>
+<td class="left">Expires: June 7, 2018</td>
+<td class="right">December 4, 2017</td>
 </tr>
 
     	
@@ -348,13 +349,16 @@ address {
   <span class="filename">draft-lubashev-ipv6-addr-mask-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators and standards occasionally find opportunities to devise addressing schemes that further assign operational semantics to less significant bit ranges.  There is currently no standard or interoperable textual representation of addresses sharing bit patterns that are not prefixes. This RFC introduces IPv6 Address/Mask notation that allows one to represent address groupings beyond &#8220;all addresses that share a single prefix&#8221;. The representation is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers.</p>
+<p>Since network operators are commonly assigned at least /48 IPv6 address prefixes, the operators frequently find opportunities to devise addressing schemes that assign operational semantics to less significant bit ranges.</p>
+<p>This document extends the traditional address/prefix-length textual representation to allow an interoperable represenation of groups of IPv6 addresses sharing bit patterns that are not prefixes.  Devices supporting the extended textual representation will allow operators to implement policies based on such non-prefix address groups.</p>
+<p>To implement policies based on bits in IPv6 addresses, the operators need a way to configure their equipment.  This RFC describes a textual representation of addresses sharing bit patterns that are not prefixes.  Once an interoperable notation is standartized and implemented by vendors, operators would find it possible to configure policies they desire for their networks.</p>
+<p>This RFC introduces IPv6 Address/Mask notation that is similar to the IPv4 address/mask notation in its expressiveness, but it is derived from the familiar address/prefix-length notation for clarity and compatibility with existing parsers.</p>
 <p>For example, using this representation, both 2001:db8::/32 and 2001:db8:://ffff:ffff:: have the same meaning.  However, a group of addresses having the first 32 bits &#8220;2001:0db8::&#8221; and the last 16 bits &#8220;::1234&#8221; requires the new representation: 2001:db8::1234//ffff:ffff::ffff or, equivalently, 2001:db8::1234//32+::ffff.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 30, 2018.</p>
+<p>This Internet-Draft will expire on June 7, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -431,11 +435,11 @@ address {
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">We have learned to think of IPv4 address groupings in terms of CIDR blocks, because virtually all logical address groupings fit that model well: IP address allocations, subnets, routing announcements, etc.</p>
-<p id="rfc.section.1.p.2">With the move to IPv6, the primary mechanism for address grouping remains matching by prefix length, albeit with longer prefix lengths.  This only allows for strictly hierarchical address groupings.  The longer address lengths, however, provide opportunities for assigning operator-specific semantics to bit strings within addresses beyond the prefix, especially when allocating addresses for virtual services.</p>
+<p id="rfc.section.1.p.1">We have learned to think of IPv4 address groupings in terms of CIDR blocks, because virtually all logical address groupings fit that model well: IP address allocations, subnets, routing announcements, etc.  With the move to IPv6, the primary mechanism for address grouping remains matching by prefix length, albeit with longer prefix lengths.</p>
+<p id="rfc.section.1.p.2">While longer interface identifiers are useful for end user privacy purposes, infrustructure networks and networks hosting content are finding opportunities for assigning operator-specific semantics to bit strings within addresses beyond the prefix.  Structured addressing scheme for virtual services reduces complexity of managing addresses and allows for concise policy definitions.</p>
 <p id="rfc.section.1.p.3">Numerous systems (see <a href="#example-systems" class="xref">Appendix A</a> for examples) have been assigning semantics to IPv6 bits that come after IANA prefix bits. Developers of these systems attempted to communicate address patterns underlying their system semantics both in documentation and in machine-readable configurations accompanying the systems. Due to the lack of a standard textual representation, the documentation often resorted to pictographs and verbose English descriptions. The configuration syntax and parsers were invariably ad hoc and incompatible with other systems.</p>
-<p id="rfc.section.1.p.4">Here we define a syntax for representing groupings (matching rules) of IPv6 addresses, where a set of less significant bits have a particular value.  For example, 2001:db8::1234//ffff:ffff::ffff matches all addresses whose 32 most significant bits are 2001:0db8 and whose 16 least significant bits are 1234.</p>
-<p id="rfc.section.1.p.5">This document only concerns itself with the textual representation of address groups that cannot be expressed as CIDR blocks. Our goal is standardizing on a consistent representation to remove a hindrance to interoperability of systems that wish to express rules and policies that apply to such address groups (see <a href="#example-systems" class="xref">Appendix A</a> for examples). Guidance for the applicability of such address groupings is outside the scope of this document.</p>
+<p id="rfc.section.1.p.4">Here we define a syntax for representing groupings (matching rules) of IPv6 addresses, where a set of less significant bits have a particular value.  For example, 2001:db8::1234//ffff:ffff::ffff matches all addresses whose 32 most significant bits are 2001:0db8 and whose 16 least significant bits are 0x1234.</p>
+<p id="rfc.section.1.p.5">The goal of this document is removing a hindrance to interoperability of systems that wish to express rules and policies that apply to address groups that cannot be expressed as CIDR blocks (see <a href="#example-systems" class="xref">Appendix A</a> for examples).  Guidance for the applicability of such address groupings is outside the scope of this document.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#current-notations" id="current-notations">Netmask and Prefix-Length Notations</a>
 </h1>
@@ -481,7 +485,7 @@ address {
 
 <ol>
 <li>2001:db8::1234//ffff:ffff::ffff  <br><br> This specifies IPv6 addresses that look like 2001:db8::1234 when you ignore bits 16-95.</li>
-<li>::aa00:1234//::ff00:ffff  <br><br> This specifies IPv6 addresses that have &#8220;aa&#8221; in bits 24-31 and &#8220;1234&#8221; in bits 0-15.</li>
+<li>::aa00:1234//::ff00:ffff  <br><br> This specifies IPv6 addresses that have 0xaa in bits 24-31 and 0x1234 in bits 0-15.</li>
 <li>2001:db8:://ffff:ffff::  <br><br> This is equivalent to 2001:db8::/32.</li>
 </ol>
 <h1 id="rfc.section.4.3">
@@ -491,7 +495,7 @@ address {
 
 <ol>
 <li>2001:db8::1:1234//ffff:ffff::ffff  <br><br> This specifies IPv6 address 2001:db8::1:1234 that belongs to a group of addresses that look like 2001:db8::1234 when you ignore bits 16-95.</li>
-<li>2001:db8::aa00:1234//::ff00:ffff  <br><br> This specifies IPv6 address 2001:db8::aa00:1234 that belongs to a group of addresses that have &#8220;aa&#8221; in bits 24-31 and &#8220;1234&#8221; in bits 0-15.</li>
+<li>2001:db8::aa00:1234//::ff00:ffff  <br><br> This specifies IPv6 address 2001:db8::aa00:1234 that belongs to a group of addresses that have 0xaa in bits 24-31 and 0x1234 in bits 0-15.</li>
 <li>2001:db8::1//ffff:ffff::  <br><br> This is equivalent to 2001:db8::1/32.</li>
 </ol>
 <h1 id="rfc.section.4.4">
@@ -712,5 +716,6 @@ address {
   </address>
 </div>
 
+  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/igorlord/ietf-ipv6-addr-mask">Fork me on GitHub</a></div></div>
 </body>
 </html>
