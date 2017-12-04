@@ -100,7 +100,18 @@ informative:
 Since network operators are commonly assigned at least /48 IPv6
 address prefixes, the operators frequently find opportunities to
 devise addressing schemes that assign operational semantics to less
-significant bit ranges. To implement policies based on bits in IPv6
+significant bit ranges.
+
+This document extends the traditional address/prefix-length textual
+representation to allow an interoperable represenation of groups of
+IPv6 addresses sharing bit patterns that are not prefixes.  Devices
+supporting the extended textual representation will allow operators to
+implement policies based on such non-prefix address groups.
+
+
+
+
+To implement policies based on bits in IPv6
 addresses, the operators need a way to configure their equipment.
 This RFC describes a textual representation of addresses sharing bit
 patterns that are not prefixes.  Once an interoperable notation is
